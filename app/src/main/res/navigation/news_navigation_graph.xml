@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news_navigation_graph"
+    app:startDestination="@id/topHeadlineNewsFragment">
+
+    <fragment
+        android:id="@+id/topHeadlineNewsFragment"
+        android:name="com.ryuichi24.newspocket.ui.fragments.TopHeadlineNewsFragment"
+        android:label="fragment_top_headline_news"
+        tools:layout="@layout/fragment_top_headline_news" >
+        <action
+            android:id="@+id/action_topHeadlineNewsFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedNewsFragment"
+        android:name="com.ryuichi24.newspocket.ui.fragments.SavedNewsFragment"
+        android:label="fragment_saved_news"
+        tools:layout="@layout/fragment_saved_news" >
+        <action
+            android:id="@+id/action_savedNewsFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.ryuichi24.newspocket.ui.fragments.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" />
+</navigation>
