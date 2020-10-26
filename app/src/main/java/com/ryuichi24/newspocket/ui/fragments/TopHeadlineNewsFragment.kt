@@ -72,7 +72,7 @@ class TopHeadlineNewsFragment : Fragment() {
     private fun setupClickListener() {
         newsAdapter.setItemClickListener { article ->
             val bundle = Bundle().apply {
-                putSerializable("ARTICLE", article)
+                putSerializable("article", article)
             }
             findNavController().navigate(
                 R.id.action_topHeadlineNewsFragment_to_newsFragment,
