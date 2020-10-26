@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.models.Article
 import kotlinx.android.synthetic.main.item_news.view.*
@@ -17,6 +18,7 @@ class NewsAdapter(): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         fun bind(article: Article) {
             itemView.tvTitle.text = article.title
             itemView.tvDescription.text = article.description
+            itemView.ivArticleImage.load(article.urlToImage)
         }
     }
 
