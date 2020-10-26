@@ -25,6 +25,10 @@ class NewsPocketViewModel(private val repository: NewsRepository): ViewModel() {
 
     fun getSavedArticles() = repository.getSavedArticles()
 
+    fun deleteArticle(article: Article) = viewModelScope.launch {
+        repository.deleteArticle(article)
+    }
+
     // TODO: update it so that it dynamically gets both a country code and a page number from the user for future features
     init {
         getTopHeadlines("us", 1)
