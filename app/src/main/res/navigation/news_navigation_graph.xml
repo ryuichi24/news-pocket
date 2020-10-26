@@ -27,5 +27,9 @@
         android:id="@+id/newsFragment"
         android:name="com.ryuichi24.newspocket.ui.fragments.NewsFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <argument
+            android:name="article"
+            app:argType="com.ryuichi24.newspocket.models.Article" />
+    </fragment>
 </navigation>

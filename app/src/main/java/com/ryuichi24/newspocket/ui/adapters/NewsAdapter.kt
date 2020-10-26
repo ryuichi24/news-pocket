@@ -19,8 +19,17 @@ class NewsAdapter(): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             itemView.tvTitle.text = article.title
             itemView.tvDescription.text = article.description
             itemView.ivArticleImage.load(article.urlToImage)
+            itemView.setOnClickListener {
+                itemClickListener?.let { listener ->
+                    listener(article)
+                }
+            }
         }
+
     }
+
+    // the function will be injected in the fragment
+    private var itemClickListener: ((Article) -> Unit)? = null
 
     // setup DiffUtil
     private val differCallback = object : DiffUtil.ItemCallback<Article>() {
@@ -49,5 +58,10 @@ class NewsAdapter(): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     override fun getItemCount(): Int {
         return differ.currentList.size
+    }
+
+    // will be used in the fragment
+    fun setItemClickListener(listener: (Article) -> Unit) {
+        itemClickListener = listener
     }
 }

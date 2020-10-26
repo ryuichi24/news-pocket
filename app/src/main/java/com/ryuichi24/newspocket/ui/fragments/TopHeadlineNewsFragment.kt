@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.databinding.FragmentTopHeadlineNewsBinding
 import com.ryuichi24.newspocket.models.NewsResponse
 import com.ryuichi24.newspocket.ui.adapters.NewsAdapter
@@ -30,19 +32,22 @@ class TopHeadlineNewsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentTopHeadlineNewsBinding.inflate(inflater, container, false)
-        // start
+
+        // start setup
         setupViewModel()
         setupRecyclerView()
+        setupClickListener()
 
-        // done
         return binding.root
     }
 
+    // clear binding
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    // <----------------------------------------Setups---------------------------------------->
     private fun setupViewModel() {
         viewModel = ViewModelProvider(
             this,
@@ -64,7 +69,19 @@ class TopHeadlineNewsFragment : Fragment() {
         }
     }
 
-    // observers
+    private fun setupClickListener() {
+        newsAdapter.setItemClickListener { article ->
+            val bundle = Bundle().apply {
+                putSerializable("ARTICLE", article)
+            }
+            findNavController().navigate(
+                R.id.action_topHeadlineNewsFragment_to_newsFragment,
+                bundle
+            )
+        }
+    }
+
+    // <----------------------------------------Observers---------------------------------------->
     private val newsObserver = Observer<NewsResponse> {
         // TODO: add response validation
         newsAdapter.differ.submitList(it.articles)
