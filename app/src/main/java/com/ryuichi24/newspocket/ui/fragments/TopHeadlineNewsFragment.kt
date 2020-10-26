@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.databinding.FragmentTopHeadlineNewsBinding
-import com.ryuichi24.newspocket.models.Article
-import com.ryuichi24.newspocket.models.Source
 import com.ryuichi24.newspocket.ui.adapters.NewsAdapter
 
 class TopHeadlineNewsFragment : Fragment() {
