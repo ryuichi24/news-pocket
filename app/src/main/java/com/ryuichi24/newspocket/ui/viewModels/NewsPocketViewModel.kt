@@ -23,6 +23,8 @@ class NewsPocketViewModel(private val repository: NewsRepository): ViewModel() {
         repository.upsert(article)
     }
 
+    fun getSavedArticles() = repository.getSavedArticles()
+
     // TODO: update it so that it dynamically gets both a country code and a page number from the user for future features
     init {
         getTopHeadlines("us", 1)
