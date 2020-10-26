@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.databinding.FragmentTopHeadlineNewsBinding
 import com.ryuichi24.newspocket.models.NewsResponse
+import com.ryuichi24.newspocket.ui.MainActivity
 import com.ryuichi24.newspocket.ui.adapters.NewsAdapter
 import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
-import com.ryuichi24.newspocket.utils.DependencyInjection
+import com.ryuichi24.newspocket.utils.DependencyProvider
 
 class TopHeadlineNewsFragment : Fragment() {
 
@@ -33,8 +34,11 @@ class TopHeadlineNewsFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentTopHeadlineNewsBinding.inflate(inflater, container, false)
 
+        // fetch viewModel
+        viewModel = (activity as MainActivity).viewModel
+
         // start setup
-        setupViewModel()
+        setupObservers()
         setupRecyclerView()
         setupClickListener()
 
@@ -48,13 +52,7 @@ class TopHeadlineNewsFragment : Fragment() {
     }
 
     // <----------------------------------------Setups---------------------------------------->
-    private fun setupViewModel() {
-        viewModel = ViewModelProvider(
-            this,
-            DependencyInjection.provideViewModelFactory()
-        ).get(NewsPocketViewModel::class.java)
-
-        // set observers
+    private fun setupObservers() {
         viewModel.topHeadlineNews.observe(viewLifecycleOwner, newsObserver)
     }
 
