@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.navigation.fragment.navArgs
 import com.ryuichi24.newspocket.databinding.FragmentNewsBinding
+import com.ryuichi24.newspocket.ui.MainActivity
+import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
 
 class NewsFragment : Fragment() {
 
+    private lateinit var viewModel : NewsPocketViewModel
     val args: NewsFragmentArgs by navArgs()
 
     // binding
@@ -24,8 +27,12 @@ class NewsFragment : Fragment() {
     ): View? {
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
 
+        // fetch viewModel
+        viewModel = (activity as MainActivity).viewModel
+
         // start setup
         setupWebView()
+        setupSaveBtn()
 
         return binding.root
     }
@@ -43,6 +50,13 @@ class NewsFragment : Fragment() {
         binding.webView.apply {
             webViewClient = WebViewClient()
             loadUrl(article.url)
+        }
+    }
+
+    private fun setupSaveBtn() {
+        binding.saveBtn.setOnClickListener {
+            val article = args.article
+            viewModel.saveArticle(article)
         }
     }
     // <----------------------------------------Observers---------------------------------------->
