@@ -1,7 +1,12 @@
 package com.ryuichi24.newspocket.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
+@Entity(
+    tableName = "articles"
+)
 data class Article(
     val author: String,
     val content: String,
@@ -11,4 +16,7 @@ data class Article(
     val title: String,
     val url: String,
     val urlToImage: String
-): Serializable
+): Serializable {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int? = null
+}
