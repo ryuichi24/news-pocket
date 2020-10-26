@@ -1,9 +1,9 @@
 package com.ryuichi24.newspocket.repository
 
-import com.ryuichi24.newspocket.api.createNewsPocketService
+import com.ryuichi24.newspocket.api.NewsPocketService
 
-class NewsRepository {
+class NewsRepository(private val apiService: NewsPocketService) {
 
     suspend fun getTopHeadlines(countryCode: String, pageNumber: Int) =
-        createNewsPocketService().getTopHeadlines(countryCode, pageNumber)
+        apiService.getTopHeadlines(countryCode, pageNumber)
 }

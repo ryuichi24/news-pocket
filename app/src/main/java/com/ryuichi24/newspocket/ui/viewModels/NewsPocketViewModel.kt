@@ -17,4 +17,9 @@ class NewsPocketViewModel(private val repository: NewsRepository): ViewModel() {
         val response = repository.getTopHeadlines(countryCode, pageNumber)
         _topHeadlineNews.value = response.body()
     }
+
+    // TODO: update it so that it dynamically gets both a country code and a page number from the user for future features
+    init {
+        getTopHeadlines("us", 1)
+    }
 }

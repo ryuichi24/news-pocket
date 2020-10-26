@@ -39,7 +39,7 @@ class SavedNewsFragment : Fragment() {
 
     private fun setupRecyclerView() {
         // TODO: inject articles from ViewModel
-        newsAdapter = NewsAdapter(emptyList() ?:emptyList())
+        newsAdapter = NewsAdapter()
         val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
 
