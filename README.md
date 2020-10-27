@@ -16,9 +16,9 @@ News Pocket is an android application built with kotlin. It lets the user:
 - [ ] Delete a note
 - [ ] Edit a note
 ## How to run this application
-1. get an api key from [NewsAPI](https://newsapi.org)
-2. create a new project with "Get from Version Control"
-3. add `API_KEY=<You API key>` in `local.properties`
+1. Get an api key from [NewsAPI](https://newsapi.org)
+2. Create a new project with "Get from Version Control"
+3. Add `API_KEY=<You API key>` in `local.properties`
 4. Run App
 ## Used API
 - [NewsAPI](https://newsapi.org)
