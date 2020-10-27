@@ -18,7 +18,10 @@ class NewsAdapter(): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         fun bind(article: Article) {
             itemView.tvTitle.text = article.title
             itemView.tvDescription.text = article.description
+            itemView.tvSource.text = article.source.name
+            itemView.tvPublishedAt.text = article.publishedAt
             itemView.ivArticleImage.load(article.urlToImage)
+
             itemView.setOnClickListener {
                 itemClickListener?.let { listener ->
                     listener(article)
