@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.databinding.FragmentSavedNewsBinding
 import com.ryuichi24.newspocket.models.Article
@@ -37,6 +40,7 @@ class SavedNewsFragment : Fragment() {
         setupObservers()
         setupRecyclerView()
         setupClickListener()
+        setupSwipeAction()
 
         return binding.root
     }
@@ -71,6 +75,39 @@ class SavedNewsFragment : Fragment() {
                 R.id.action_savedNewsFragment_to_newsFragment,
                 bundle
             )
+        }
+    }
+
+    private fun setupSwipeAction() {
+        val itemTouchHelperCallback = object: ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.ACTION_STATE_IDLE,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val itemPosition = viewHolder.adapterPosition
+                val swipedArticle = newsAdapter.differ.currentList[itemPosition]
+
+                viewModel.deleteArticle(swipedArticle)
+
+                Snackbar.make(requireView(), "The article has been deleted", Snackbar.LENGTH_LONG).apply {
+                    setAction("Undo") {
+                        viewModel.saveArticle(swipedArticle)
+                    }
+                    show()
+                }
+            }
+        }
+
+        ItemTouchHelper(itemTouchHelperCallback).apply {
+            attachToRecyclerView(binding.rvSavedNews)
         }
     }
 
