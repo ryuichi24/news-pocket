@@ -15,8 +15,14 @@ class NewsPocketViewModel(private val repository: NewsRepository): ViewModel() {
     val topHeadlineNews: LiveData<NewsResponse> = _topHeadlineNews
 
     fun getTopHeadlines(countryCode: String, pageNumber: Int) = viewModelScope.launch {
-        val response = repository.getTopHeadlines(countryCode, pageNumber)
-        _topHeadlineNews.value = response.body()
+        try {
+            val response = repository.getTopHeadlines(countryCode, pageNumber)
+            _topHeadlineNews.value = response.body()
+        } catch (e: Exception) {
+            // TODO: update Internet Connection Error handling
+            println("Internet connection error")
+        }
+
     }
 
     fun saveArticle(article: Article) = viewModelScope.launch {
