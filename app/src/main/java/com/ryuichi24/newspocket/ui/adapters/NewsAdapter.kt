@@ -1,6 +1,5 @@
 package com.ryuichi24.newspocket.ui.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +10,21 @@ import coil.load
 import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.models.Article
 import kotlinx.android.synthetic.main.item_news.view.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class NewsAdapter(): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(article: Article) {
+            // format published date
+            val parsedDate = LocalDateTime.parse(article.publishedAt, DateTimeFormatter.ISO_DATE_TIME)
+            val formattedDate = parsedDate.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"))
+
             itemView.tvTitle.text = article.title
             itemView.tvDescription.text = article.description
             itemView.tvSource.text = article.source.name
-            itemView.tvPublishedAt.text = article.publishedAt
+            itemView.tvPublishedAt.text = formattedDate
             itemView.ivArticleImage.load(article.urlToImage)
 
             itemView.setOnClickListener {
