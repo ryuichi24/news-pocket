@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.databinding.FragmentSavedNewsBinding
 import com.ryuichi24.newspocket.models.Article
 import com.ryuichi24.newspocket.ui.MainActivity
@@ -34,6 +36,7 @@ class SavedNewsFragment : Fragment() {
         // start setup
         setupObservers()
         setupRecyclerView()
+        setupClickListener()
 
         return binding.root
     }
@@ -56,6 +59,18 @@ class SavedNewsFragment : Fragment() {
         binding.rvSavedNews.apply {
             adapter = newsAdapter
             layoutManager = linearLayoutManager
+        }
+    }
+
+    private fun setupClickListener() {
+        newsAdapter.setItemClickListener { article ->
+            val bundle = Bundle().apply {
+                putSerializable("article", article)
+            }
+            findNavController().navigate(
+                R.id.action_savedNewsFragment_to_newsFragment,
+                bundle
+            )
         }
     }
 
