@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.ryuichi24.newspocket.databinding.FragmentNewsBinding
 import com.ryuichi24.newspocket.ui.MainActivity
 import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
@@ -57,6 +58,7 @@ class NewsFragment : Fragment() {
         binding.saveBtn.setOnClickListener {
             val article = args.article
             viewModel.saveArticle(article)
+            Snackbar.make(requireView(), "The article has been saved", Snackbar.LENGTH_SHORT).show()
         }
     }
     // <----------------------------------------Observers---------------------------------------->
