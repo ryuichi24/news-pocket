@@ -1,5 +1,6 @@
 package com.ryuichi24.newspocket.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,8 +16,10 @@ import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.databinding.FragmentSavedNewsBinding
 import com.ryuichi24.newspocket.models.Article
 import com.ryuichi24.newspocket.ui.MainActivity
+import com.ryuichi24.newspocket.ui.NoteActivity
 import com.ryuichi24.newspocket.ui.adapters.SavedNewsAdapter
 import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
+import com.ryuichi24.newspocket.utils.NoteAction
 
 class SavedNewsFragment : Fragment() {
 
@@ -75,6 +78,20 @@ class SavedNewsFragment : Fragment() {
                 R.id.action_savedNewsFragment_to_newsFragment,
                 bundle
             )
+        }
+
+        savedNewsAdapter.setAddNoteBtnClickListener {
+            val intent = Intent(requireActivity(), NoteActivity::class.java).apply {
+                putExtra(NoteAction::class.simpleName, NoteAction.ADD)
+            }
+            startActivity(intent)
+        }
+
+        savedNewsAdapter.setReadNoteBtnItemClickListener {
+            val intent = Intent(requireActivity(), NoteActivity::class.java).apply {
+                putExtra(NoteAction::class.simpleName, NoteAction.READ)
+            }
+            startActivity(intent)
         }
     }
 

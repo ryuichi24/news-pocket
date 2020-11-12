@@ -34,6 +34,19 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
             itemView.tvPublishedAt.text = formattedDate
             itemView.ivArticleImage.load(savedArticle.urlToImage)
 
+            itemView.addNoteBtn.setOnClickListener {
+                addNoteBtnClickListener?.let { listener ->
+                    listener()
+                }
+
+            }
+
+            itemView.readNoteBtn.setOnClickListener {
+                readNoteBtnClickListener?.let { listener ->
+                    listener()
+                }
+            }
+
             itemView.clArticle.setOnClickListener {
                 itemClickListener?.let { listener ->
                     listener(savedArticle)
@@ -44,6 +57,8 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
 
     // the function will be injected in the fragment
     private var itemClickListener: ((Article) -> Unit)? = null
+    private var addNoteBtnClickListener: (() -> Unit)? = null
+    private var readNoteBtnClickListener: (() -> Unit)? = null
 
 
     // setup DiffUtil
@@ -78,5 +93,13 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
     // will be used in the fragment
     fun setItemClickListener(listener: (Article) -> Unit) {
         itemClickListener = listener
+    }
+
+    fun setAddNoteBtnClickListener(listener: () -> Unit) {
+        addNoteBtnClickListener = listener
+    }
+
+    fun setReadNoteBtnItemClickListener(listener: () -> Unit) {
+        readNoteBtnClickListener = listener
     }
 }
