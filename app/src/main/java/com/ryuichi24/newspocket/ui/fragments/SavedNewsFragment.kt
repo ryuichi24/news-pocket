@@ -15,13 +15,13 @@ import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.databinding.FragmentSavedNewsBinding
 import com.ryuichi24.newspocket.models.Article
 import com.ryuichi24.newspocket.ui.MainActivity
-import com.ryuichi24.newspocket.ui.adapters.NewsAdapter
+import com.ryuichi24.newspocket.ui.adapters.SavedNewsAdapter
 import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
 
 class SavedNewsFragment : Fragment() {
 
     private lateinit var viewModel : NewsPocketViewModel
-    private lateinit var newsAdapter: NewsAdapter
+    private lateinit var savedNewsAdapter: SavedNewsAdapter
 
     // binding
     private var _binding: FragmentSavedNewsBinding? = null
@@ -56,18 +56,18 @@ class SavedNewsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter()
+        savedNewsAdapter = SavedNewsAdapter()
         val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
 
         binding.rvSavedNews.apply {
-            adapter = newsAdapter
+            adapter = savedNewsAdapter
             layoutManager = linearLayoutManager
         }
     }
 
     private fun setupClickListener() {
-        newsAdapter.setItemClickListener { article ->
+        savedNewsAdapter.setItemClickListener { article ->
             val bundle = Bundle().apply {
                 putSerializable("article", article)
             }
@@ -93,7 +93,7 @@ class SavedNewsFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val itemPosition = viewHolder.adapterPosition
-                val swipedArticle = newsAdapter.differ.currentList[itemPosition]
+                val swipedArticle = savedNewsAdapter.differ.currentList[itemPosition]
 
                 viewModel.deleteArticle(swipedArticle)
 
@@ -113,6 +113,6 @@ class SavedNewsFragment : Fragment() {
 
     // <----------------------------------------Observers---------------------------------------->
     private val savedNewsObserver = Observer<List<Article>> { articles ->
-        newsAdapter.differ.submitList(articles)
+        savedNewsAdapter.differ.submitList(articles)
     }
 }
