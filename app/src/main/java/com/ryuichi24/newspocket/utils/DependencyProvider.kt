@@ -13,9 +13,9 @@ import com.ryuichi24.newspocket.ui.viewModels.ViewModelFactory
 
 object DependencyProvider {
 
-    private val apiService = createNewsPocketService()
-
     fun provideViewModel(mainActivity: AppCompatActivity): NewsPocketViewModel {
+        val apiService = createNewsPocketService()
+
         val articleDAO = NewsPocketDatabase.getDatabase(mainActivity).getArticleDAO()
         val articleRepository = ArticleRepository(apiService, articleDAO)
         val mainViewModel = ViewModelProvider(mainActivity, ViewModelFactory(articleRepository)).get(NewsPocketViewModel::class.java)

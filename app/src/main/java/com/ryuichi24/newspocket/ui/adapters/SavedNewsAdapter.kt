@@ -75,8 +75,8 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
     val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedNewsViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_saved_news, parent, false)
+        val inflater = LayoutInflater.from(parent.context)
+        val view = inflater.inflate(R.layout.item_saved_news, parent, false)
         return SavedNewsViewHolder(view)
     }
 
