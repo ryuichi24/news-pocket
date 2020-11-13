@@ -7,16 +7,20 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ryuichi24.newspocket.R
+import com.ryuichi24.newspocket.ui.viewModels.NoteViewModel
+import com.ryuichi24.newspocket.utils.DependencyProvider
 import com.ryuichi24.newspocket.utils.NoteAction
 
 
 class NoteActivity : AppCompatActivity() {
 
+    lateinit var viewModel: NoteViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note)
-
         setupBottomNavigation()
+        setupViewModel()
     }
 
     // <----------------------------------------Setups---------------------------------------->
@@ -41,6 +45,10 @@ class NoteActivity : AppCompatActivity() {
 
         navGraph.startDestination = destination
         navController.graph = navGraph
+    }
+
+    private fun setupViewModel() {
+        viewModel = DependencyProvider.provideNoteViewModel(this)
     }
 
 

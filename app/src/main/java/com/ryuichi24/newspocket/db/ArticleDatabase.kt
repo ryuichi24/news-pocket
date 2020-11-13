@@ -6,28 +6,30 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.ryuichi24.newspocket.models.Article
+import com.ryuichi24.newspocket.models.Note
 
 @Database(
-    entities = [Article::class],
+    entities = [Article::class, Note::class],
     version = 1
 )
 @TypeConverters(Converters::class)
-abstract class ArticleDatabase: RoomDatabase() {
+abstract class NewsPocketDatabase: RoomDatabase() {
 
     abstract fun getArticleDAO(): ArticleDAO
+    abstract  fun getNoteDAO(): NoteDAO
 
     companion object {
         @Volatile
-        private var INSTANCE: ArticleDatabase? = null
+        private var INSTANCE: NewsPocketDatabase? = null
 
-        fun getDatabase(context: Context): ArticleDatabase {
+        fun getDatabase(context: Context): NewsPocketDatabase {
             val hasInstance = INSTANCE != null
             if(hasInstance) return INSTANCE!!
 
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    ArticleDatabase::class.java,
+                    NewsPocketDatabase::class.java,
                     "article.db"
                 ).build()
                 INSTANCE = instance

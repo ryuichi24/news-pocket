@@ -18,5 +18,5 @@ data class Article(
     val urlToImage: String
 ): Serializable {
     @PrimaryKey(autoGenerate = true)
-    var id: Int? = null
+    var articleId: Int? = null
 }

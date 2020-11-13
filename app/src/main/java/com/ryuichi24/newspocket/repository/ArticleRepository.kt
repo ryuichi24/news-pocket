@@ -4,7 +4,7 @@ import com.ryuichi24.newspocket.api.NewsPocketService
 import com.ryuichi24.newspocket.db.ArticleDAO
 import com.ryuichi24.newspocket.models.Article
 
-class NewsRepository(
+class ArticleRepository(
     private val apiService: NewsPocketService,
     private val articleDAO: ArticleDAO
 ) {

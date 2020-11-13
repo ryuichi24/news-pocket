@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ryuichi24.newspocket.models.Article
 import com.ryuichi24.newspocket.models.NewsResponse
-import com.ryuichi24.newspocket.repository.NewsRepository
+import com.ryuichi24.newspocket.repository.ArticleRepository
 import kotlinx.coroutines.launch
 
-class NewsPocketViewModel(private val repository: NewsRepository): ViewModel() {
+class NewsPocketViewModel(private val repository: ArticleRepository): ViewModel() {
 
     private val _topHeadlineNews: MutableLiveData<NewsResponse> = MutableLiveData()
     val topHeadlineNews: LiveData<NewsResponse> = _topHeadlineNews
