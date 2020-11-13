@@ -12,8 +12,8 @@ News Pocket is an android application built with kotlin. It lets the user:
 - [x] Open a web view with an article link
 - [x] Save a news article
 - [x] Delete a news article
-- [ ] Make a note for the saved article
-- [ ] Delete a note
+- [X] Make a note for the saved article
+- [X] Delete a note
 - [ ] Edit a note
 - [ ] Add a label to saved articles
 - [ ] List saved articles by the label
