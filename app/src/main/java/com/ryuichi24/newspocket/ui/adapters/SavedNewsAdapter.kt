@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.models.Article
-import kotlinx.android.synthetic.main.item_news.view.*
 import kotlinx.android.synthetic.main.item_news.view.ivArticleImage
 import kotlinx.android.synthetic.main.item_news.view.tvDescription
 import kotlinx.android.synthetic.main.item_news.view.tvPublishedAt
@@ -34,14 +33,14 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
             itemView.tvPublishedAt.text = formattedDate
             itemView.ivArticleImage.load(savedArticle.urlToImage)
 
-            itemView.addNoteBtn.setOnClickListener {
+            itemView.goAddNoteBtn.setOnClickListener {
                 addNoteBtnClickListener?.let { listener ->
                     listener()
                 }
 
             }
 
-            itemView.readNoteBtn.setOnClickListener {
+            itemView.goReadNoteBtn.setOnClickListener {
                 readNoteBtnClickListener?.let { listener ->
                     listener()
                 }
