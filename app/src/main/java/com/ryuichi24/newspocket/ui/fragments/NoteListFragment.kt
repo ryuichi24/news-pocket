@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.ryuichi24.newspocket.databinding.FragmentNoteListBinding
 import com.ryuichi24.newspocket.models.Note
 import com.ryuichi24.newspocket.ui.NoteActivity
@@ -30,13 +31,15 @@ class NoteListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentNoteListBinding.inflate(inflater, container, false)
-        // fetch viewModel
+
+        // fetch elements from activity
         viewModel = (activity as NoteActivity).viewModel
         val currentNoteId = (activity as NoteActivity).getCurrentNoteId()
 
         // start setup
         setupRecyclerView()
         setupObservers(currentNoteId)
+        setupClickListener()
 
         return binding.root
     }
@@ -62,6 +65,20 @@ class NoteListFragment : Fragment() {
 
     private fun setupObservers(noteId: Int) {
         viewModel.getNotesByArticleId(noteId).observe(viewLifecycleOwner, savedNotesObserver)
+    }
+
+    private fun setupClickListener() {
+        savedNotesAdapter.setDeleteBtnClickListener { note ->
+            viewModel.deleteNote(note)
+
+            Snackbar.make(requireView(), "The note has been deleted", Snackbar.LENGTH_LONG)
+                .apply {
+                    setAction("Undo") {
+                        viewModel.upsertNote(note)
+                    }
+                    show()
+                }
+        }
     }
 
 // <----------------------------------------Observers---------------------------------------->

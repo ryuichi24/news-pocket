@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ryuichi24.newspocket.R
+import com.ryuichi24.newspocket.models.Article
 import com.ryuichi24.newspocket.models.Note
 import kotlinx.android.synthetic.main.item_note.view.*
 
@@ -17,8 +18,16 @@ class SavedNotesAdapter() : RecyclerView.Adapter<SavedNotesAdapter.SavedNotesVie
         fun bind(savedNote: Note) {
             itemView.tvNoteDate.text = savedNote.date.toString()
             itemView.tvNoteContent.text = savedNote.text
+            itemView.btnDeleteNote.setOnClickListener {
+                deleteBtnClickListener?.let { listener ->
+                    listener(savedNote)
+                }
+            }
         }
     }
+
+    // the function will be injected in the fragment
+    private var deleteBtnClickListener: ((Note) -> Unit)? = null
 
     // setup DiffUtil
     private val differCallback = object : DiffUtil.ItemCallback<Note>() {
@@ -47,5 +56,10 @@ class SavedNotesAdapter() : RecyclerView.Adapter<SavedNotesAdapter.SavedNotesVie
 
     override fun getItemCount(): Int {
         return differ.currentList.size
+    }
+
+    // will be used in the fragment
+    fun setDeleteBtnClickListener(listener: (Note) -> Unit) {
+        deleteBtnClickListener = listener
     }
 }

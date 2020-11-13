@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.ryuichi24.newspocket.databinding.FragmentAddNoteBinding
 import com.ryuichi24.newspocket.models.Note
 import com.ryuichi24.newspocket.ui.MainActivity
@@ -52,9 +53,9 @@ class AddNoteFragment : Fragment() {
             val note = Note(text = noteText, date = Date(), ownerArticleId = currentNoteId)
             viewModel.upsertNote(note)
             binding.noteContentText.editableText.clear()
+            Snackbar.make(requireView(), "The note has been added", Snackbar.LENGTH_LONG).show()
         }
     }
-
 
 // <----------------------------------------Observers---------------------------------------->
 
