@@ -32,11 +32,11 @@ class NoteListFragment : Fragment() {
         _binding = FragmentNoteListBinding.inflate(inflater, container, false)
         // fetch viewModel
         viewModel = (activity as NoteActivity).viewModel
+        val currentNoteId = (activity as NoteActivity).getCurrentNoteId()
 
         // start setup
         setupRecyclerView()
-        setupObservers()
-
+        setupObservers(currentNoteId)
 
         return binding.root
     }
@@ -60,8 +60,8 @@ class NoteListFragment : Fragment() {
         }
     }
 
-    private fun setupObservers() {
-        viewModel.getAllNotes().observe(viewLifecycleOwner, savedNotesObserver)
+    private fun setupObservers(noteId: Int) {
+        viewModel.getNotesByArticleId(noteId).observe(viewLifecycleOwner, savedNotesObserver)
     }
 
 // <----------------------------------------Observers---------------------------------------->

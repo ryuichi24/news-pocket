@@ -9,6 +9,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.ui.viewModels.NoteViewModel
 import com.ryuichi24.newspocket.utils.DependencyProvider
+import com.ryuichi24.newspocket.utils.IntentConstants.CURRENT_NOTE_ID
+import com.ryuichi24.newspocket.utils.IntentConstants.NOTE_ACTION
 import com.ryuichi24.newspocket.utils.NoteAction
 
 
@@ -19,8 +21,13 @@ class NoteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note)
+
         setupBottomNavigation()
         setupViewModel()
+    }
+
+    fun getCurrentNoteId() : Int {
+        return intent.getIntExtra(CURRENT_NOTE_ID, 0)
     }
 
     // <----------------------------------------Setups---------------------------------------->
@@ -34,7 +41,7 @@ class NoteActivity : AppCompatActivity() {
         val navGraph = graphInflater.inflate(R.navigation.note_navigation_graph)
         val navController = fragmentContainer.findNavController()
 
-        val whichAction = intent.getSerializableExtra(NoteAction::class.simpleName)
+        val whichAction = intent.getSerializableExtra(NOTE_ACTION)
         val destination: Int
 
         destination = when (whichAction) {

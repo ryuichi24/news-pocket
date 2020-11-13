@@ -19,15 +19,18 @@ import com.ryuichi24.newspocket.ui.MainActivity
 import com.ryuichi24.newspocket.ui.NoteActivity
 import com.ryuichi24.newspocket.ui.adapters.SavedNewsAdapter
 import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
+import com.ryuichi24.newspocket.utils.IntentConstants.CURRENT_NOTE_ID
+import com.ryuichi24.newspocket.utils.IntentConstants.NOTE_ACTION
 import com.ryuichi24.newspocket.utils.NoteAction
 
 class SavedNewsFragment : Fragment() {
 
-    private lateinit var viewModel : NewsPocketViewModel
+    private lateinit var viewModel: NewsPocketViewModel
     private lateinit var savedNewsAdapter: SavedNewsAdapter
 
     // binding
     private var _binding: FragmentSavedNewsBinding? = null
+
     // this property only valid between onCreateView and onDestroyView
     private val binding: FragmentSavedNewsBinding get() = _binding!!
 
@@ -80,23 +83,25 @@ class SavedNewsFragment : Fragment() {
             )
         }
 
-        savedNewsAdapter.setAddNoteBtnClickListener {
+        savedNewsAdapter.setAddNoteBtnClickListener { article ->
             val intent = Intent(requireActivity(), NoteActivity::class.java).apply {
-                putExtra(NoteAction::class.simpleName, NoteAction.ADD)
+                putExtra(NOTE_ACTION, NoteAction.ADD)
+                putExtra(CURRENT_NOTE_ID, article.articleId)
             }
             startActivity(intent)
         }
 
-        savedNewsAdapter.setReadNoteBtnItemClickListener {
+        savedNewsAdapter.setReadNoteBtnItemClickListener { article ->
             val intent = Intent(requireActivity(), NoteActivity::class.java).apply {
-                putExtra(NoteAction::class.simpleName, NoteAction.READ)
+                putExtra(NOTE_ACTION, NoteAction.READ)
+                putExtra(CURRENT_NOTE_ID, article.articleId)
             }
             startActivity(intent)
         }
     }
 
     private fun setupSwipeAction() {
-        val itemTouchHelperCallback = object: ItemTouchHelper.SimpleCallback(
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.ACTION_STATE_IDLE,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
         ) {
@@ -114,12 +119,13 @@ class SavedNewsFragment : Fragment() {
 
                 viewModel.deleteArticle(swipedArticle)
 
-                Snackbar.make(requireView(), "The article has been deleted", Snackbar.LENGTH_LONG).apply {
-                    setAction("Undo") {
-                        viewModel.saveArticle(swipedArticle)
+                Snackbar.make(requireView(), "The article has been deleted", Snackbar.LENGTH_LONG)
+                    .apply {
+                        setAction("Undo") {
+                            viewModel.saveArticle(swipedArticle)
+                        }
+                        show()
                     }
-                    show()
-                }
             }
         }
 

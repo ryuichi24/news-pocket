@@ -35,14 +35,14 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
 
             itemView.goAddNoteBtn.setOnClickListener {
                 addNoteBtnClickListener?.let { listener ->
-                    listener()
+                    listener(savedArticle)
                 }
 
             }
 
             itemView.goReadNoteBtn.setOnClickListener {
                 readNoteBtnClickListener?.let { listener ->
-                    listener()
+                    listener(savedArticle)
                 }
             }
 
@@ -56,8 +56,8 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
 
     // the function will be injected in the fragment
     private var itemClickListener: ((Article) -> Unit)? = null
-    private var addNoteBtnClickListener: (() -> Unit)? = null
-    private var readNoteBtnClickListener: (() -> Unit)? = null
+    private var addNoteBtnClickListener: (((Article)) -> Unit)? = null
+    private var readNoteBtnClickListener: (((Article)) -> Unit)? = null
 
 
     // setup DiffUtil
@@ -94,11 +94,11 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
         itemClickListener = listener
     }
 
-    fun setAddNoteBtnClickListener(listener: () -> Unit) {
+    fun setAddNoteBtnClickListener(listener: (Article) -> Unit) {
         addNoteBtnClickListener = listener
     }
 
-    fun setReadNoteBtnItemClickListener(listener: () -> Unit) {
+    fun setReadNoteBtnItemClickListener(listener: (Article) -> Unit) {
         readNoteBtnClickListener = listener
     }
 }
