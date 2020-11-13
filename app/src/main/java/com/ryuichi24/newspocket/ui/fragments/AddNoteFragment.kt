@@ -28,16 +28,13 @@ class AddNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAddNoteBinding.inflate(inflater, container, false)
-        // fetch viewModel
-        viewModel = (activity as NoteActivity).viewModel
-        val noteId = (activity as NoteActivity).getCurrentNoteId()
 
-        binding.addNoteBtn.setOnClickListener {
-            val noteText = binding.noteContentText.editableText.toString()
-            val note = Note(text = noteText, date = Date(), ownerArticleId = noteId)
-            viewModel.upsertNote(note)
-            binding.noteContentText.editableText.clear()
-        }
+        // fetch elements from activity
+        viewModel = (activity as NoteActivity).viewModel
+        val currentNoteId = (activity as NoteActivity).getCurrentNoteId()
+
+        // start setup
+        setupAddNoteBtn(currentNoteId)
 
         return binding.root
     }
@@ -48,7 +45,15 @@ class AddNoteFragment : Fragment() {
         _binding = null
     }
 
-// <----------------------------------------Setups---------------------------------------->
+    // <----------------------------------------Setups---------------------------------------->
+    private fun setupAddNoteBtn(currentNoteId: Int) {
+        binding.addNoteBtn.setOnClickListener {
+            val noteText = binding.noteContentText.editableText.toString()
+            val note = Note(text = noteText, date = Date(), ownerArticleId = currentNoteId)
+            viewModel.upsertNote(note)
+            binding.noteContentText.editableText.clear()
+        }
+    }
 
 
 // <----------------------------------------Observers---------------------------------------->
