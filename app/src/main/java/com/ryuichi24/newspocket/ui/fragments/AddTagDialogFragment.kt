@@ -51,8 +51,8 @@ class AddTagDialogFragment : DialogFragment() {
     }
 
     private fun setupAddTagBtn() {
-        val tagName = binding.etTagName.editableText.toString()
         binding.btnAddTag.setOnClickListener {
+            val tagName = binding.etTagName.editableText.toString()
             viewModel.addTag(Tag(name = tagName))
             binding.etTagName.editableText.clear()
             Snackbar.make(requireView(), "The tag has been added", Snackbar.LENGTH_LONG).show()

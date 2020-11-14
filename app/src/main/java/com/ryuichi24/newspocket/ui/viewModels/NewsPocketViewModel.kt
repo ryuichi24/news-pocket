@@ -36,6 +36,10 @@ class NewsPocketViewModel(
         articleRepository.upsert(article)
     }
 
+    fun updateArticle(article: Article) = viewModelScope.launch {
+        articleRepository.update(article)
+    }
+
     fun getSavedArticles() = articleRepository.getSavedArticles()
 
     fun getSavedArticlesByTagId(tagId: Int) = articleRepository.getSavedArticlesByTagId(tagId)

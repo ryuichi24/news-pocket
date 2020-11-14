@@ -24,7 +24,7 @@ data class Article(
     val title: String,
     val url: String,
     val urlToImage: String,
-    val ownerTagId: Int?
+    var ownerTagId: Int?
 ): Serializable {
     @PrimaryKey(autoGenerate = true)
     var articleId: Int? = null

@@ -12,7 +12,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="60dp"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="20dp"
         android:text="Select a tag"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -21,6 +23,15 @@
         android:id="@+id/spiTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp" />
+        android:layout_marginBottom="30dp" />
+
+    <Button
+        android:id="@+id/btnTagSelectSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@color/colorPrimary"
+        android:text="Save"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

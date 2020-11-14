@@ -12,4 +12,9 @@ data class Tag(
     ): Serializable {
     @PrimaryKey(autoGenerate = true)
     var tagId: Int? = null
+
+    // to deal with ArrayAdapter for spinner
+    override fun toString(): String {
+        return name
+    }
 }

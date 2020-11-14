@@ -19,5 +19,7 @@ class ArticleRepository(
 
     suspend fun upsert(article: Article) = articleDAO.upsert(article)
 
+    suspend fun update(article: Article) = articleDAO.update(article)
+
     suspend fun deleteArticle(article: Article) = articleDAO.deleteArticle(article)
 }
