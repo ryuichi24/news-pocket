@@ -36,7 +36,7 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
 
             itemView.btnTagSetting.setOnClickListener {
                 btnTagSettingClickListener?.let { listener ->
-                    listener(itemView.btnTagSetting)
+                    listener(savedArticle, itemView.btnTagSetting)
                 }
             }
 
@@ -62,7 +62,7 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
     }
 
     // the function will be injected in the fragment
-    private var btnTagSettingClickListener: ((tagSettingBtn: ImageButton) -> Unit)? = null
+    private var btnTagSettingClickListener: ((Article, ImageButton) -> Unit)? = null
     private var itemClickListener: ((Article) -> Unit)? = null
     private var btnAddNoteClickListener: (((Article)) -> Unit)? = null
     private var btnReadNoteClickListener: (((Article)) -> Unit)? = null
@@ -98,7 +98,7 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
     }
 
     // will be used in the fragment
-    fun setBtnTagSettingClickListener(listener: (tagSettingBtn: ImageButton) -> Unit) {
+    fun setBtnTagSettingClickListener(listener: (Article, ImageButton) -> Unit) {
         btnTagSettingClickListener = listener
     }
 

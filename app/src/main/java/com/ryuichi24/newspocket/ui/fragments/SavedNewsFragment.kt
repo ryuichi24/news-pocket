@@ -22,8 +22,8 @@ import com.ryuichi24.newspocket.ui.MainActivity
 import com.ryuichi24.newspocket.ui.NoteActivity
 import com.ryuichi24.newspocket.ui.adapters.SavedNewsAdapter
 import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
-import com.ryuichi24.newspocket.utils.IntentConstants.CURRENT_NOTE_ID
-import com.ryuichi24.newspocket.utils.IntentConstants.NOTE_ACTION
+import com.ryuichi24.newspocket.utils.PutKeyConstants.CURRENT_NOTE_ID
+import com.ryuichi24.newspocket.utils.PutKeyConstants.NOTE_ACTION
 import com.ryuichi24.newspocket.utils.NoteAction
 
 class SavedNewsFragment : Fragment() {
@@ -82,19 +82,19 @@ class SavedNewsFragment : Fragment() {
 
     private fun setupBtnTagSettingClickListener(fragmentManager: FragmentManager) {
 
-        savedNewsAdapter.setBtnTagSettingClickListener { tagSettingBtn ->
+        savedNewsAdapter.setBtnTagSettingClickListener { article, tagSettingBtn ->
 
             PopupMenu(requireContext(), tagSettingBtn).apply {
                 inflate(R.menu.tag_setting_menu)
                 setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
                         R.id.miSelectTag -> {
-                            val selectTagDialogFragment = SelectTagDialogFragment()
+                            val selectTagDialogFragment = SelectTagDialogFragment.newInstance(article)
                             selectTagDialogFragment.show(fragmentManager, tag)
                             true
                         }
                         R.id.miAddTag -> {
-                            val addTagDialogFragment = AddTagDialogFragment()
+                            val addTagDialogFragment = AddTagDialogFragment.newInstance(article)
                             addTagDialogFragment.show(fragmentManager, tag)
                             true
                         }

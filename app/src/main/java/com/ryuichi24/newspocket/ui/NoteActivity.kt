@@ -9,8 +9,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.ui.viewModels.NoteViewModel
 import com.ryuichi24.newspocket.utils.DependencyProvider
-import com.ryuichi24.newspocket.utils.IntentConstants.CURRENT_NOTE_ID
-import com.ryuichi24.newspocket.utils.IntentConstants.NOTE_ACTION
+import com.ryuichi24.newspocket.utils.PutKeyConstants.CURRENT_NOTE_ID
+import com.ryuichi24.newspocket.utils.PutKeyConstants.NOTE_ACTION
 import com.ryuichi24.newspocket.utils.NoteAction
 
 
