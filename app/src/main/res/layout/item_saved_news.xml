@@ -41,7 +41,7 @@
             tools:text="IT" />
 
         <ImageButton
-            android:id="@+id/tagSettingBtn"
+            android:id="@+id/btnTagSetting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -139,7 +139,7 @@
         app:layout_constraintTop_toBottomOf="@+id/clArticle">
 
         <ImageButton
-            android:id="@+id/goAddNoteBtn"
+            android:id="@+id/btnGoAddNote"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_weight="1"
@@ -155,7 +155,7 @@
             android:background="?android:attr/listDivider" />
 
         <ImageButton
-            android:id="@+id/goReadNoteBtn"
+            android:id="@+id/btnGoNoteList"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_weight="1"

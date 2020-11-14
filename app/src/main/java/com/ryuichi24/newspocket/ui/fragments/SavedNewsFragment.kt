@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -73,6 +74,14 @@ class SavedNewsFragment : Fragment() {
     }
 
     private fun setupClickListener() {
+        savedNewsAdapter.setBtnTagSettingClickListener { tagSettingBtn ->
+
+            PopupMenu(requireContext(), tagSettingBtn).apply {
+                inflate(R.menu.tag_setting_menu)
+                show()
+            }
+        }
+
         savedNewsAdapter.setItemClickListener { article ->
             val bundle = Bundle().apply {
                 putSerializable("article", article)

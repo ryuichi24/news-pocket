@@ -3,6 +3,7 @@ package com.ryuichi24.newspocket.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -33,15 +34,21 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
             itemView.tvPublishedAt.text = formattedDate
             itemView.ivArticleImage.load(savedArticle.urlToImage)
 
-            itemView.goAddNoteBtn.setOnClickListener {
-                addNoteBtnClickListener?.let { listener ->
+            itemView.btnTagSetting.setOnClickListener {
+                btnTagSettingClickListener?.let { listener ->
+                    listener(itemView.btnTagSetting)
+                }
+            }
+
+            itemView.btnGoAddNote.setOnClickListener {
+                btnAddNoteClickListener?.let { listener ->
                     listener(savedArticle)
                 }
 
             }
 
-            itemView.goReadNoteBtn.setOnClickListener {
-                readNoteBtnClickListener?.let { listener ->
+            itemView.btnGoNoteList.setOnClickListener {
+                btnReadNoteClickListener?.let { listener ->
                     listener(savedArticle)
                 }
             }
@@ -55,9 +62,10 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
     }
 
     // the function will be injected in the fragment
+    private var btnTagSettingClickListener: ((tagSettingBtn: ImageButton) -> Unit)? = null
     private var itemClickListener: ((Article) -> Unit)? = null
-    private var addNoteBtnClickListener: (((Article)) -> Unit)? = null
-    private var readNoteBtnClickListener: (((Article)) -> Unit)? = null
+    private var btnAddNoteClickListener: (((Article)) -> Unit)? = null
+    private var btnReadNoteClickListener: (((Article)) -> Unit)? = null
 
 
     // setup DiffUtil
@@ -90,15 +98,19 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
     }
 
     // will be used in the fragment
+    fun setBtnTagSettingClickListener(listener: (tagSettingBtn: ImageButton) -> Unit) {
+        btnTagSettingClickListener = listener
+    }
+
     fun setItemClickListener(listener: (Article) -> Unit) {
         itemClickListener = listener
     }
 
     fun setAddNoteBtnClickListener(listener: (Article) -> Unit) {
-        addNoteBtnClickListener = listener
+        btnAddNoteClickListener = listener
     }
 
     fun setReadNoteBtnItemClickListener(listener: (Article) -> Unit) {
-        readNoteBtnClickListener = listener
+        btnReadNoteClickListener = listener
     }
 }
