@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -40,14 +42,19 @@ class SavedNewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSavedNewsBinding.inflate(inflater, container, false)
-        // fetch viewModel
+
+        // fetch elements from activity
         viewModel = (activity as MainActivity).viewModel
+        val fragmentManager = (activity as MainActivity).supportFragmentManager
 
         // start setup
         setupObservers()
         setupRecyclerView()
-        setupClickListener()
         setupSwipeAction()
+        setupItemClickListener()
+        setupBtnAddNoteClickListener()
+        setupBtnTagSettingClickListener(fragmentManager)
+        setupBtnReadNoteItemClickListener()
 
         return binding.root
     }
@@ -73,15 +80,39 @@ class SavedNewsFragment : Fragment() {
         }
     }
 
-    private fun setupClickListener() {
+    private fun setupBtnTagSettingClickListener(fragmentManager: FragmentManager) {
+
         savedNewsAdapter.setBtnTagSettingClickListener { tagSettingBtn ->
 
             PopupMenu(requireContext(), tagSettingBtn).apply {
                 inflate(R.menu.tag_setting_menu)
+                setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.miSelectTag -> {
+                            val selectTagDialogFragment = SelectTagDialogFragment()
+                            selectTagDialogFragment.show(fragmentManager, tag)
+                            true
+                        }
+                        R.id.miAddTag -> {
+                            val addTagDialogFragment = AddTagDialogFragment()
+                            addTagDialogFragment.show(fragmentManager, tag)
+                            true
+                        }
+
+                        else -> {
+                            Toast.makeText(requireContext(), "Error occurred", Toast.LENGTH_SHORT)
+                                .show()
+                            true
+                        }
+                    }
+                }
                 show()
             }
         }
 
+    }
+
+    private fun setupItemClickListener() {
         savedNewsAdapter.setItemClickListener { article ->
             val bundle = Bundle().apply {
                 putSerializable("article", article)
@@ -92,15 +123,20 @@ class SavedNewsFragment : Fragment() {
             )
         }
 
-        savedNewsAdapter.setAddNoteBtnClickListener { article ->
+    }
+
+    private fun setupBtnAddNoteClickListener() {
+        savedNewsAdapter.setBtnAddNoteClickListener { article ->
             val intent = Intent(requireActivity(), NoteActivity::class.java).apply {
                 putExtra(NOTE_ACTION, NoteAction.ADD)
                 putExtra(CURRENT_NOTE_ID, article.articleId)
             }
             startActivity(intent)
         }
+    }
 
-        savedNewsAdapter.setReadNoteBtnItemClickListener { article ->
+    private fun setupBtnReadNoteItemClickListener() {
+        savedNewsAdapter.setBtnReadNoteItemClickListener { article ->
             val intent = Intent(requireActivity(), NoteActivity::class.java).apply {
                 putExtra(NOTE_ACTION, NoteAction.READ)
                 putExtra(CURRENT_NOTE_ID, article.articleId)

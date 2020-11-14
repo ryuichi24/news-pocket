@@ -106,11 +106,11 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
         itemClickListener = listener
     }
 
-    fun setAddNoteBtnClickListener(listener: (Article) -> Unit) {
+    fun setBtnAddNoteClickListener(listener: (Article) -> Unit) {
         btnAddNoteClickListener = listener
     }
 
-    fun setReadNoteBtnItemClickListener(listener: (Article) -> Unit) {
+    fun setBtnReadNoteItemClickListener(listener: (Article) -> Unit) {
         btnReadNoteClickListener = listener
     }
 }
