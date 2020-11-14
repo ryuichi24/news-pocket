@@ -29,10 +29,14 @@ class AddTagDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAddTagDialogBinding.inflate(inflater, container, false)
-        
 
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
