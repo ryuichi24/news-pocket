@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.ryuichi24.newspocket.databinding.FragmentAddTagDialogBinding
 import com.ryuichi24.newspocket.models.Article
+import com.ryuichi24.newspocket.ui.MainActivity
+import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
 import com.ryuichi24.newspocket.utils.PutKeyConstants.CURRENT_SAVED_ARTICLE
 
 class AddTagDialogFragment : DialogFragment() {
+
+    private lateinit var viewModel : NewsPocketViewModel
 
     private var currentSavedArticle: Article? = null
     // binding
@@ -29,6 +33,9 @@ class AddTagDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAddTagDialogBinding.inflate(inflater, container, false)
+
+        // fetch elements from activity
+        viewModel = (activity as MainActivity).viewModel
 
 
         return binding.root
