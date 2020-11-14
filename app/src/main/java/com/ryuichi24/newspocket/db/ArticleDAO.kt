@@ -12,6 +12,9 @@ interface ArticleDAO {
     @Query("SELECT * FROM articles")
     fun getAllArticles(): LiveData<List<Article>>
 
+    @Query("SELECT * FROM articles WHERE ownerTagId LIKE :tagId")
+    fun getArticlesByTagId(tagId: Int): LiveData<List<Article>>
+
     @Delete
     suspend fun deleteArticle(article: Article)
 }

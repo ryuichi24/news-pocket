@@ -7,9 +7,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.ryuichi24.newspocket.models.Article
 import com.ryuichi24.newspocket.models.Note
+import com.ryuichi24.newspocket.models.Tag
 
 @Database(
-    entities = [Article::class, Note::class],
+    entities = [Article::class, Note::class, Tag::class],
     version = 1
 )
 @TypeConverters(Converters::class)
@@ -17,6 +18,7 @@ abstract class NewsPocketDatabase: RoomDatabase() {
 
     abstract fun getArticleDAO(): ArticleDAO
     abstract  fun getNoteDAO(): NoteDAO
+    abstract fun getTagDAO(): TagDAO
 
     companion object {
         @Volatile

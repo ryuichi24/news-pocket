@@ -6,17 +6,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ryuichi24.newspocket.models.Article
 import com.ryuichi24.newspocket.models.NewsResponse
+import com.ryuichi24.newspocket.models.Tag
 import com.ryuichi24.newspocket.repository.ArticleRepository
+import com.ryuichi24.newspocket.repository.TagRepository
 import kotlinx.coroutines.launch
 
-class NewsPocketViewModel(private val repository: ArticleRepository): ViewModel() {
+class NewsPocketViewModel(
+    private val articleRepository: ArticleRepository,
+    private val tagRepository: TagRepository
+) : ViewModel() {
 
     private val _topHeadlineNews: MutableLiveData<NewsResponse> = MutableLiveData()
     val topHeadlineNews: LiveData<NewsResponse> = _topHeadlineNews
 
     fun getTopHeadlines(countryCode: String, pageNumber: Int) = viewModelScope.launch {
         try {
-            val response = repository.getTopHeadlines(countryCode, pageNumber)
+            val response = articleRepository.getTopHeadlines(countryCode, pageNumber)
             _topHeadlineNews.value = response.body()
         } catch (e: Exception) {
             // TODO: update Internet Connection Error handling
@@ -25,15 +30,32 @@ class NewsPocketViewModel(private val repository: ArticleRepository): ViewModel(
 
     }
 
+    // articles
+
     fun saveArticle(article: Article) = viewModelScope.launch {
-        repository.upsert(article)
+        articleRepository.upsert(article)
     }
 
-    fun getSavedArticles() = repository.getSavedArticles()
+    fun getSavedArticles() = articleRepository.getSavedArticles()
+
+    fun getSavedArticlesByTagId(tagId: Int) = articleRepository.getSavedArticlesByTagId(tagId)
 
     fun deleteArticle(article: Article) = viewModelScope.launch {
-        repository.deleteArticle(article)
+        articleRepository.deleteArticle(article)
     }
+
+    // tags
+
+    fun getAllTags() = tagRepository.getAllTags()
+
+    fun addTag(tag: Tag) = viewModelScope.launch {
+        tagRepository.upsert(tag)
+    }
+
+    fun deleteTag(tag: Tag) = viewModelScope.launch {
+        tagRepository.deleteTag(tag)
+    }
+
 
     // TODO: update it so that it dynamically gets both a country code and a page number from the user for future features
     init {

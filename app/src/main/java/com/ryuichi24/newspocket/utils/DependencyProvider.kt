@@ -6,6 +6,7 @@ import com.ryuichi24.newspocket.api.createNewsPocketService
 import com.ryuichi24.newspocket.db.NewsPocketDatabase
 import com.ryuichi24.newspocket.repository.ArticleRepository
 import com.ryuichi24.newspocket.repository.NoteRepository
+import com.ryuichi24.newspocket.repository.TagRepository
 import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
 import com.ryuichi24.newspocket.ui.viewModels.NoteViewModel
 import com.ryuichi24.newspocket.ui.viewModels.NoteViewModelFactory
@@ -16,9 +17,15 @@ object DependencyProvider {
     fun provideViewModel(mainActivity: AppCompatActivity): NewsPocketViewModel {
         val apiService = createNewsPocketService()
 
-        val articleDAO = NewsPocketDatabase.getDatabase(mainActivity).getArticleDAO()
+        val database = NewsPocketDatabase.getDatabase(mainActivity)
+
+        val articleDAO = database.getArticleDAO()
         val articleRepository = ArticleRepository(apiService, articleDAO)
-        val mainViewModel = ViewModelProvider(mainActivity, ViewModelFactory(articleRepository)).get(NewsPocketViewModel::class.java)
+
+        val tagDAO = database.getTagDAO()
+        val tagRepository = TagRepository(tagDAO)
+
+        val mainViewModel = ViewModelProvider(mainActivity, ViewModelFactory(articleRepository, tagRepository)).get(NewsPocketViewModel::class.java)
 
         return mainViewModel
     }
