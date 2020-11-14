@@ -49,7 +49,7 @@ class NewsPocketViewModel(
     fun getAllTags() = tagRepository.getAllTags()
 
     fun addTag(tag: Tag) = viewModelScope.launch {
-        tagRepository.upsert(tag)
+        val res = tagRepository.upsert(tag)
     }
 
     fun deleteTag(tag: Tag) = viewModelScope.launch {

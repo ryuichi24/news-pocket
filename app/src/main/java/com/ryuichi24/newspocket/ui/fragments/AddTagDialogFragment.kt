@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.snackbar.Snackbar
 import com.ryuichi24.newspocket.databinding.FragmentAddTagDialogBinding
 import com.ryuichi24.newspocket.models.Article
+import com.ryuichi24.newspocket.models.Tag
 import com.ryuichi24.newspocket.ui.MainActivity
 import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
 import com.ryuichi24.newspocket.utils.PutKeyConstants.CURRENT_SAVED_ARTICLE
@@ -37,6 +39,8 @@ class AddTagDialogFragment : DialogFragment() {
         // fetch elements from activity
         viewModel = (activity as MainActivity).viewModel
 
+        // start setuo
+        setupAddTagBtn()
 
         return binding.root
     }
@@ -44,6 +48,16 @@ class AddTagDialogFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupAddTagBtn() {
+        val tagName = binding.etTagName.editableText.toString()
+        binding.btnAddTag.setOnClickListener {
+            viewModel.addTag(Tag(name = tagName))
+            binding.etTagName.editableText.clear()
+            Snackbar.make(requireView(), "The tag has been added", Snackbar.LENGTH_LONG).show()
+        }
+
     }
 
     companion object {
