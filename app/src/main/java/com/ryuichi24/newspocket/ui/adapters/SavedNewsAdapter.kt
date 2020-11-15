@@ -27,7 +27,7 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
         fun bind(savedArticleWithTag: ArticleWithTag) {
             // TODO: create helper class for formatting date
             val savedArticle = savedArticleWithTag.article
-            val tag = savedArticleWithTag.tag
+            val tagName = savedArticleWithTag.tagName
 
             val parsedDate = LocalDateTime.parse(savedArticle.publishedAt, DateTimeFormatter.ISO_DATE_TIME)
             val formattedDate = parsedDate.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"))
@@ -38,7 +38,7 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
             itemView.tvPublishedAt.text = formattedDate
             itemView.ivArticleImage.load(savedArticle.urlToImage)
 
-            itemView.tvTag.text = tag.name
+            itemView.tvTag.text = tagName ?: "No Tag"
 
             itemView.btnTagSetting.setOnClickListener {
                 btnTagSettingClickListener?.let { listener ->

@@ -17,7 +17,9 @@ interface ArticleDAO {
     @Query("SELECT * FROM articles")
     fun getAllArticles(): LiveData<List<Article>>
 
-    @Query("SELECT * FROM articles INNER JOIN tags on tags.tagId = articles.ownerTagId")
+    @Transaction
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT * FROM articles LEFT JOIN tags on tags.tagId = articles.ownerTagId")
     fun getAllArticlesWithTag(): LiveData<List<ArticleWithTag>>
 
     @Query("SELECT * FROM articles WHERE ownerTagId LIKE :tagId")
