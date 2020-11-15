@@ -15,6 +15,8 @@ class ArticleRepository(
     // <---------------------------------------Data Access---------------------------------------->
     fun getSavedArticles() = articleDAO.getAllArticles()
 
+    fun getAllSavedArticlesWithTag() = articleDAO.getAllArticlesWithTag()
+
     fun getSavedArticlesByTagId(tagId: Int) = articleDAO.getArticlesByTagId(tagId)
 
     suspend fun upsert(article: Article) = articleDAO.upsert(article)

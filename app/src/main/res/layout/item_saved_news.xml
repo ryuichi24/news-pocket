@@ -24,20 +24,15 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:layout_weight="1"
-            android:text="Tag:"
+            android:background="@color/colorPrimary"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="2dp"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvTagValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/tvTag"
-            app:layout_constraintTop_toTopOf="@+id/tvTag"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="IT" />
 
         <ImageButton

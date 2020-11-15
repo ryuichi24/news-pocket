@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.models.Article
+import com.ryuichi24.newspocket.models.ArticleWithTag
 import kotlinx.android.synthetic.main.item_news.view.ivArticleImage
 import kotlinx.android.synthetic.main.item_news.view.tvDescription
 import kotlinx.android.synthetic.main.item_news.view.tvPublishedAt
@@ -23,8 +24,11 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
 
     inner class SavedNewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(savedArticle: Article) {
+        fun bind(savedArticleWithTag: ArticleWithTag) {
             // TODO: create helper class for formatting date
+            val savedArticle = savedArticleWithTag.article
+            val tag = savedArticleWithTag.tag
+
             val parsedDate = LocalDateTime.parse(savedArticle.publishedAt, DateTimeFormatter.ISO_DATE_TIME)
             val formattedDate = parsedDate.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"))
 
@@ -33,6 +37,8 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
             itemView.tvSource.text = savedArticle.source.name
             itemView.tvPublishedAt.text = formattedDate
             itemView.ivArticleImage.load(savedArticle.urlToImage)
+
+            itemView.tvTag.text = tag.name
 
             itemView.btnTagSetting.setOnClickListener {
                 btnTagSettingClickListener?.let { listener ->
@@ -69,12 +75,12 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
 
 
     // setup DiffUtil
-    private val differCallback = object : DiffUtil.ItemCallback<Article>() {
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem.url == newItem.url
+    private val differCallback = object : DiffUtil.ItemCallback<ArticleWithTag>() {
+        override fun areItemsTheSame(oldItem: ArticleWithTag, newItem: ArticleWithTag): Boolean {
+            return oldItem.article.url == newItem.article.url
         }
 
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+        override fun areContentsTheSame(oldItem: ArticleWithTag, newItem: ArticleWithTag): Boolean {
             return oldItem == newItem
         }
     }
@@ -89,8 +95,8 @@ class SavedNewsAdapter(): RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHol
     }
 
     override fun onBindViewHolder(holder: SavedNewsViewHolder, position: Int) {
-        val article = differ.currentList[position]
-        holder.bind(article)
+        val articleWithTag = differ.currentList[position]
+        holder.bind(articleWithTag)
     }
 
     override fun getItemCount(): Int {

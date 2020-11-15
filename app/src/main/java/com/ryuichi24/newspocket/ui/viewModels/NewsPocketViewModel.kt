@@ -44,6 +44,8 @@ class NewsPocketViewModel(
 
     fun getSavedArticlesByTagId(tagId: Int) = articleRepository.getSavedArticlesByTagId(tagId)
 
+    fun getArticlesWithTag() = articleRepository.getAllSavedArticlesWithTag()
+
     fun deleteArticle(article: Article) = viewModelScope.launch {
         articleRepository.deleteArticle(article)
     }

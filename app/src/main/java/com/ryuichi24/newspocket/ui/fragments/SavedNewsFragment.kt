@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.databinding.FragmentSavedNewsBinding
 import com.ryuichi24.newspocket.models.Article
+import com.ryuichi24.newspocket.models.ArticleWithTag
 import com.ryuichi24.newspocket.ui.MainActivity
 import com.ryuichi24.newspocket.ui.NoteActivity
 import com.ryuichi24.newspocket.ui.adapters.SavedNewsAdapter
@@ -67,6 +68,8 @@ class SavedNewsFragment : Fragment() {
     // <----------------------------------------Setups---------------------------------------->
     private fun setupObservers() {
         viewModel.getSavedArticles().observe(viewLifecycleOwner, savedNewsObserver)
+
+        viewModel.getArticlesWithTag().observe(viewLifecycleOwner, savedArticlesWithTagObserver)
     }
 
     private fun setupRecyclerView() {
@@ -160,7 +163,7 @@ class SavedNewsFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val itemPosition = viewHolder.adapterPosition
-                val swipedArticle = savedNewsAdapter.differ.currentList[itemPosition]
+                val swipedArticle = savedNewsAdapter.differ.currentList[itemPosition].article
 
                 viewModel.deleteArticle(swipedArticle)
 
@@ -181,6 +184,10 @@ class SavedNewsFragment : Fragment() {
 
     // <----------------------------------------Observers---------------------------------------->
     private val savedNewsObserver = Observer<List<Article>> { articles ->
-        savedNewsAdapter.differ.submitList(articles)
+        //savedNewsAdapter.differ.submitList(articles)
+    }
+
+    private val savedArticlesWithTagObserver = Observer<List<ArticleWithTag>> {
+        savedNewsAdapter.differ.submitList(it)
     }
 }
