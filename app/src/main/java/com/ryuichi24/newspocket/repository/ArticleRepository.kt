@@ -19,7 +19,7 @@ class ArticleRepository(
 
     fun getSavedArticlesByTagId(tagId: Int) = articleDAO.getArticlesByTagId(tagId)
 
-    suspend fun upsert(article: Article) = articleDAO.upsert(article)
+    suspend fun insert(article: Article) = articleDAO.insert(article)
 
     suspend fun update(article: Article) = articleDAO.update(article)
 

@@ -33,7 +33,7 @@ class NewsPocketViewModel(
     // articles
 
     fun saveArticle(article: Article) = viewModelScope.launch {
-        articleRepository.upsert(article)
+        articleRepository.insert(article)
     }
 
     fun updateArticle(article: Article) = viewModelScope.launch {
@@ -55,13 +55,12 @@ class NewsPocketViewModel(
     fun getAllTags() = tagRepository.getAllTags()
 
     fun addTag(tag: Tag) = viewModelScope.launch {
-        val res = tagRepository.upsert(tag)
+        tagRepository.insert(tag)
     }
 
     fun deleteTag(tag: Tag) = viewModelScope.launch {
         tagRepository.deleteTag(tag)
     }
-
 
     // TODO: update it so that it dynamically gets both a country code and a page number from the user for future features
     init {

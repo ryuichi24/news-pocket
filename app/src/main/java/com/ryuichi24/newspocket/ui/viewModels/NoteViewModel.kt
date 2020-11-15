@@ -12,8 +12,8 @@ class NoteViewModel(private val repository: NoteRepository): ViewModel() {
 
     fun getNotesByArticleId(articleId: Int) = repository.getAllNotesByArticleId(articleId)
 
-    fun upsertNote(note: Note) = viewModelScope.launch {
-        repository.upsert(note)
+    fun insertNote(note: Note) = viewModelScope.launch {
+        repository.insert(note)
     }
 
     fun deleteNote(note: Note) = viewModelScope.launch {

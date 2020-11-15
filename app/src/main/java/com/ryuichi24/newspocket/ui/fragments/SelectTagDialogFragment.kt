@@ -50,9 +50,7 @@ class SelectTagDialogFragment : DialogFragment() {
         setupSpinner()
 
         binding.btnTagSelectSave.setOnClickListener {
-            println(selectedTag?.name)
             currentSavedArticle?.ownerTagId = selectedTag?.tagId
-            println(currentSavedArticle)
             viewModel.updateArticle(currentSavedArticle!!)
         }
 

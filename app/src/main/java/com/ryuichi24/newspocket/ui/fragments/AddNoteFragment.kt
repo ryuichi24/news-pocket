@@ -51,7 +51,7 @@ class AddNoteFragment : Fragment() {
         binding.addNoteBtn.setOnClickListener {
             val noteText = binding.noteContentText.editableText.toString()
             val note = Note(text = noteText, date = Date(), ownerArticleId = currentNoteId)
-            viewModel.upsertNote(note)
+            viewModel.insertNote(note)
             binding.noteContentText.editableText.clear()
             Snackbar.make(requireView(), "The note has been added", Snackbar.LENGTH_LONG).show()
         }

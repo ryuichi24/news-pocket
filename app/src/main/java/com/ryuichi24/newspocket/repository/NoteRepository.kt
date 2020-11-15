@@ -10,7 +10,7 @@ class NoteRepository(
 
     fun getAllNotesByArticleId(articleId: Int) = noteDAO.getAllNotesByArticleId(articleId)
 
-    suspend fun upsert(note: Note) = noteDAO.upsert(note)
+    suspend fun insert(note: Note) = noteDAO.insert(note)
 
     suspend fun deleteNote(note: Note) = noteDAO.deleteNote(note)
 }

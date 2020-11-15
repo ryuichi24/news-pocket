@@ -7,7 +7,7 @@ import com.ryuichi24.newspocket.models.Tag
 @Dao
 interface TagDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(tag: Tag): Long
+    suspend fun insert(tag: Tag): Long
 
     @Query("SELECT * FROM tags")
     fun getAllTags(): LiveData<List<Tag>>

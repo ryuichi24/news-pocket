@@ -74,7 +74,7 @@ class NoteListFragment : Fragment() {
             Snackbar.make(requireView(), "The note has been deleted", Snackbar.LENGTH_LONG)
                 .apply {
                     setAction("Undo") {
-                        viewModel.upsertNote(note)
+                        viewModel.insertNote(note)
                     }
                     show()
                 }

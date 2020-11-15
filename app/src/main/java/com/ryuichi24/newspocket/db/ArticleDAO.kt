@@ -9,7 +9,7 @@ import com.ryuichi24.newspocket.models.TagWithArticles
 @Dao
 interface ArticleDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(article: Article): Long
+    suspend fun insert(article: Article): Long
 
     @Update
     suspend fun update(article: Article)

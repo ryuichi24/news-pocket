@@ -7,7 +7,7 @@ import com.ryuichi24.newspocket.models.Note
 @Dao
 interface NoteDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(note: Note): Long
+    suspend fun insert(note: Note): Long
 
     @Query("SELECT * FROM notes")
     fun getAllNotes(): LiveData<List<Note>>
