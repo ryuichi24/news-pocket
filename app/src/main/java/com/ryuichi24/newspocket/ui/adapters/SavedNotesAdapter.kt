@@ -18,6 +18,11 @@ class SavedNotesAdapter() : RecyclerView.Adapter<SavedNotesAdapter.SavedNotesVie
         fun bind(savedNote: Note) {
             itemView.tvNoteDate.text = savedNote.date.toString()
             itemView.tvNoteContent.text = savedNote.text
+            itemView.tvNoteContent.setOnClickListener {
+                tvNoteContentClickListener?.let { listener ->
+                    listener(savedNote)
+                }
+            }
             itemView.btnDeleteNote.setOnClickListener {
                 deleteBtnClickListener?.let { listener ->
                     listener(savedNote)
@@ -28,6 +33,7 @@ class SavedNotesAdapter() : RecyclerView.Adapter<SavedNotesAdapter.SavedNotesVie
 
     // the function will be injected in the fragment
     private var deleteBtnClickListener: ((Note) -> Unit)? = null
+    private var tvNoteContentClickListener: ((Note) -> Unit)? = null
 
     // setup DiffUtil
     private val differCallback = object : DiffUtil.ItemCallback<Note>() {
@@ -61,5 +67,9 @@ class SavedNotesAdapter() : RecyclerView.Adapter<SavedNotesAdapter.SavedNotesVie
     // will be used in the fragment
     fun setDeleteBtnClickListener(listener: (Note) -> Unit) {
         deleteBtnClickListener = listener
+    }
+
+    fun setTvNoteContentClickListener(listener: (Note) -> Unit) {
+        tvNoteContentClickListener = listener
     }
 }

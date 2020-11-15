@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,11 +36,13 @@ class NoteListFragment : Fragment() {
         // fetch elements from activity
         viewModel = (activity as NoteActivity).viewModel
         val currentNoteId = (activity as NoteActivity).getCurrentNoteId()
+        val fragmentManager = (activity as NoteActivity).supportFragmentManager
 
         // start setup
         setupRecyclerView()
         setupObservers(currentNoteId)
-        setupClickListener()
+        setupDeleteBtnClickListener()
+        setupTvNoteContentClickListener(fragmentManager)
 
         return binding.root
     }
@@ -67,7 +70,14 @@ class NoteListFragment : Fragment() {
         viewModel.getNotesByArticleId(noteId).observe(viewLifecycleOwner, savedNotesObserver)
     }
 
-    private fun setupClickListener() {
+    private fun setupTvNoteContentClickListener(fragmentManager: FragmentManager) {
+        savedNotesAdapter.setTvNoteContentClickListener { note ->
+            val editNoteDialogFragment = EditNoteDialogFragment.newInstance(note)
+            editNoteDialogFragment.show(fragmentManager, tag)
+        }
+    }
+
+    private fun setupDeleteBtnClickListener() {
         savedNotesAdapter.setDeleteBtnClickListener { note ->
             viewModel.deleteNote(note)
 

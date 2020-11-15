@@ -20,6 +20,7 @@ import com.ryuichi24.newspocket.ui.viewModels.NoteViewModel
 import com.ryuichi24.newspocket.utils.PutKeyConstants
 import com.ryuichi24.newspocket.utils.PutKeyConstants.CURRENT_NOTE
 import com.ryuichi24.newspocket.utils.PutKeyConstants.CURRENT_SAVED_ARTICLE
+import java.util.*
 
 class EditNoteDialogFragment : DialogFragment() {
 
@@ -61,13 +62,20 @@ class EditNoteDialogFragment : DialogFragment() {
     }
 
     private fun setupEditNoteBtn() {
-        //
+        binding.etNoteEditContent.editableText.append(currentNote?.text)
+
+        binding.btnNoteEdit.setOnClickListener {
+            val newNoteContent = binding.etNoteEditContent.editableText.toString()
+            val newNote = currentNote?.copy(text = newNoteContent, date = Date())
+            newNote?.id = currentNote?.id
+            viewModel.updateNote(newNote!!)
+        }
     }
 
     companion object {
         @JvmStatic
         fun newInstance(currentNote: Note) =
-            AddTagDialogFragment().apply {
+            EditNoteDialogFragment().apply {
                 arguments = Bundle().apply {
                     putSerializable(CURRENT_NOTE, currentNote)
                 }
