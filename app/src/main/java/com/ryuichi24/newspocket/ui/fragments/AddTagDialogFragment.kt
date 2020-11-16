@@ -10,12 +10,12 @@ import com.ryuichi24.newspocket.databinding.FragmentAddTagDialogBinding
 import com.ryuichi24.newspocket.models.Article
 import com.ryuichi24.newspocket.models.Tag
 import com.ryuichi24.newspocket.ui.MainActivity
-import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
+import com.ryuichi24.newspocket.ui.viewModels.MainViewModel
 import com.ryuichi24.newspocket.utils.PutKeyConstants.CURRENT_SAVED_ARTICLE
 
 class AddTagDialogFragment : DialogFragment() {
 
-    private lateinit var viewModel : NewsPocketViewModel
+    private lateinit var viewModel : MainViewModel
 
     private var currentSavedArticle: Article? = null
     // binding

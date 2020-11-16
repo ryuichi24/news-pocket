@@ -3,17 +3,16 @@ package com.ryuichi24.newspocket.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ryuichi24.newspocket.R
-import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
+import com.ryuichi24.newspocket.ui.viewModels.MainViewModel
 import com.ryuichi24.newspocket.utils.DependencyProvider
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewModel: NewsPocketViewModel
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

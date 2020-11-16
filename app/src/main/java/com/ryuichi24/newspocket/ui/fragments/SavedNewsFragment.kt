@@ -22,14 +22,14 @@ import com.ryuichi24.newspocket.models.ArticleWithTag
 import com.ryuichi24.newspocket.ui.MainActivity
 import com.ryuichi24.newspocket.ui.NoteActivity
 import com.ryuichi24.newspocket.ui.adapters.SavedNewsAdapter
-import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
+import com.ryuichi24.newspocket.ui.viewModels.MainViewModel
 import com.ryuichi24.newspocket.utils.PutKeyConstants.CURRENT_NOTE_ID
 import com.ryuichi24.newspocket.utils.PutKeyConstants.NOTE_ACTION
 import com.ryuichi24.newspocket.utils.NoteAction
 
 class SavedNewsFragment : Fragment() {
 
-    private lateinit var viewModel: NewsPocketViewModel
+    private lateinit var viewModel: MainViewModel
     private lateinit var savedNewsAdapter: SavedNewsAdapter
 
     // binding

@@ -10,11 +10,11 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.ryuichi24.newspocket.databinding.FragmentNewsBinding
 import com.ryuichi24.newspocket.ui.MainActivity
-import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
+import com.ryuichi24.newspocket.ui.viewModels.MainViewModel
 
 class NewsFragment : Fragment() {
 
-    private lateinit var viewModel : NewsPocketViewModel
+    private lateinit var viewModel : MainViewModel
     val args: NewsFragmentArgs by navArgs()
 
     // binding

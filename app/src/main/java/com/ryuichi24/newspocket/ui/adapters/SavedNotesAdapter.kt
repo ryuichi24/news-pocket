@@ -10,13 +10,17 @@ import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.models.Article
 import com.ryuichi24.newspocket.models.Note
 import kotlinx.android.synthetic.main.item_note.view.*
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 class SavedNotesAdapter() : RecyclerView.Adapter<SavedNotesAdapter.SavedNotesViewHolder>() {
 
     inner class SavedNotesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(savedNote: Note) {
-            itemView.tvNoteDate.text = savedNote.date.toString()
+            val simpleDateFormat = SimpleDateFormat("MM-dd-yyyy")
+
+            itemView.tvNoteDate.text = simpleDateFormat.format(savedNote.date)
             itemView.tvNoteContent.text = savedNote.text
             itemView.tvNoteContent.setOnClickListener {
                 tvNoteContentClickListener?.let { listener ->
@@ -38,7 +42,7 @@ class SavedNotesAdapter() : RecyclerView.Adapter<SavedNotesAdapter.SavedNotesVie
     // setup DiffUtil
     private val differCallback = object : DiffUtil.ItemCallback<Note>() {
         override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.noteId == newItem.noteId
         }
 
         override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {

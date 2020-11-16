@@ -11,7 +11,7 @@ import com.ryuichi24.newspocket.repository.ArticleRepository
 import com.ryuichi24.newspocket.repository.TagRepository
 import kotlinx.coroutines.launch
 
-class NewsPocketViewModel(
+class MainViewModel(
     private val articleRepository: ArticleRepository,
     private val tagRepository: TagRepository
 ) : ViewModel() {

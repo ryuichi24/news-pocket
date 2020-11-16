@@ -22,5 +22,5 @@ data class Note(
     val ownerArticleId: Int
 ): Serializable {
     @PrimaryKey(autoGenerate = true)
-    var id: Int? = null
+    var noteId: Int? = null
 }

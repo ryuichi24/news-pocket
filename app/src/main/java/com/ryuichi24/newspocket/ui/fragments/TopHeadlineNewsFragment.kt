@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ryuichi24.newspocket.R
@@ -14,12 +13,11 @@ import com.ryuichi24.newspocket.databinding.FragmentTopHeadlineNewsBinding
 import com.ryuichi24.newspocket.models.NewsResponse
 import com.ryuichi24.newspocket.ui.MainActivity
 import com.ryuichi24.newspocket.ui.adapters.NewsAdapter
-import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
-import com.ryuichi24.newspocket.utils.DependencyProvider
+import com.ryuichi24.newspocket.ui.viewModels.MainViewModel
 
 class TopHeadlineNewsFragment : Fragment() {
 
-    private lateinit var viewModel : NewsPocketViewModel
+    private lateinit var viewModel : MainViewModel
     private lateinit var newsAdapter: NewsAdapter
 
     // binding

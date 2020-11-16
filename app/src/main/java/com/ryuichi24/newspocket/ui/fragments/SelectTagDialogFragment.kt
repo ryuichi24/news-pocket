@@ -6,20 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import com.ryuichi24.newspocket.R
 import com.ryuichi24.newspocket.databinding.FragmentSelectTagDialogBinding
 import com.ryuichi24.newspocket.models.Article
 import com.ryuichi24.newspocket.models.Tag
 import com.ryuichi24.newspocket.ui.MainActivity
-import com.ryuichi24.newspocket.ui.viewModels.NewsPocketViewModel
+import com.ryuichi24.newspocket.ui.viewModels.MainViewModel
 import com.ryuichi24.newspocket.utils.PutKeyConstants.CURRENT_SAVED_ARTICLE
 
 class SelectTagDialogFragment : DialogFragment() {
 
-    private lateinit var viewModel: NewsPocketViewModel
+    private lateinit var viewModel: MainViewModel
 
     private var currentSavedArticle: Article? = null
 
@@ -52,6 +52,7 @@ class SelectTagDialogFragment : DialogFragment() {
         binding.btnTagSelectSave.setOnClickListener {
             currentSavedArticle?.ownerTagId = selectedTag?.tagId
             viewModel.updateArticle(currentSavedArticle!!)
+            Snackbar.make(requireView(), "The tag has been selected", Snackbar.LENGTH_LONG).show()
         }
 
 
