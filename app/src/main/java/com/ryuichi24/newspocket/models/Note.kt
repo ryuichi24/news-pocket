@@ -12,7 +12,8 @@ import java.util.*
         ForeignKey(
             entity = Article::class,
             childColumns = ["ownerArticleId"],
-            parentColumns = ["articleId"]
+            parentColumns = ["articleId"],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )
