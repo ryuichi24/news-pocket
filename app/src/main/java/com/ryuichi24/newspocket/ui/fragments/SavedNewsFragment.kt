@@ -67,8 +67,6 @@ class SavedNewsFragment : Fragment() {
 
     // <----------------------------------------Setups---------------------------------------->
     private fun setupObservers() {
-        viewModel.getSavedArticles().observe(viewLifecycleOwner, savedNewsObserver)
-
         viewModel.getArticlesWithTag().observe(viewLifecycleOwner, savedArticlesWithTagObserver)
     }
 
@@ -183,10 +181,6 @@ class SavedNewsFragment : Fragment() {
     }
 
     // <----------------------------------------Observers---------------------------------------->
-    private val savedNewsObserver = Observer<List<Article>> { articles ->
-        //savedNewsAdapter.differ.submitList(articles)
-    }
-
     private val savedArticlesWithTagObserver = Observer<List<ArticleWithTag>> {
         savedNewsAdapter.differ.submitList(it)
     }
